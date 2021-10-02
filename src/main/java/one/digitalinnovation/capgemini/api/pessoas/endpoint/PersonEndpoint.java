@@ -3,6 +3,7 @@ package one.digitalinnovation.capgemini.api.pessoas.endpoint;
 import lombok.AllArgsConstructor;
 import one.digitalinnovation.capgemini.api.pessoas.dto.PersonDTO;
 import one.digitalinnovation.capgemini.api.pessoas.entity.Person;
+import one.digitalinnovation.capgemini.api.pessoas.exception.PersonNotFound;
 import one.digitalinnovation.capgemini.api.pessoas.service.PersonService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,18 @@ public class PersonEndpoint {
         var pageResponse = new PageImpl<>(listDtoResponse, pageable, page.getTotalElements());
 
         return ResponseEntity.ok(pageResponse);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonDTO> findById(@PathVariable("id") Long id) throws PersonNotFound {
+
+        var optional = personService.findById(id);
+
+        var person = optional.orElseThrow(() -> new PersonNotFound(id));
+
+        var dto = modelMapper.map(person, PersonDTO.class);
+
+        return ResponseEntity.ok(dto);
     }
 
 }
