@@ -43,6 +43,20 @@ public class PersonEndpoint {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonDTO> update(@PathVariable("id") Long id, @RequestBody @Valid PersonDTO dto) throws PersonNotFound {
+
+        var person = getPerson(id);
+
+        modelMapper.map(dto, person);
+
+        person = personService.save(person);
+
+        var dtoResponse = modelMapper.map(person, PersonDTO.class);
+
+        return ResponseEntity.ok(dtoResponse);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) throws PersonNotFound {
 
