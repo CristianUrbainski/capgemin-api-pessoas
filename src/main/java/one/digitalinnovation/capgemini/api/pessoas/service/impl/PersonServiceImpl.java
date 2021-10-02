@@ -28,6 +28,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public void delete(Person person) {
+
+        personRepository.delete(person);
+    }
+
+    @Override
     public Page<Person> findAll(Pageable pageable) {
 
         return personRepository.findAll(pageable);

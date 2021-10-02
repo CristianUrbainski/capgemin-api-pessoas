@@ -43,6 +43,16 @@ public class PersonEndpoint {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) throws PersonNotFound {
+
+        Person person = getPerson(id);
+
+        personService.delete(person);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @GetMapping
     public ResponseEntity<Page<PersonDTO>> findAll(@PageableDefault(page = 0, size = 20) Pageable pageable) {
 
@@ -61,13 +71,16 @@ public class PersonEndpoint {
     @GetMapping("/{id}")
     public ResponseEntity<PersonDTO> findById(@PathVariable("id") Long id) throws PersonNotFound {
 
-        var optional = personService.findById(id);
-
-        var person = optional.orElseThrow(() -> new PersonNotFound(id));
+        Person person = getPerson(id);
 
         var dto = modelMapper.map(person, PersonDTO.class);
 
         return ResponseEntity.ok(dto);
+    }
+
+    private Person getPerson(@PathVariable("id") Long id) throws PersonNotFound {
+
+        return personService.findById(id).orElseThrow(() -> new PersonNotFound(id));
     }
 
 }
