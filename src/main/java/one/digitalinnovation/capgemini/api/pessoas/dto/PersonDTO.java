@@ -1,5 +1,6 @@
 package one.digitalinnovation.capgemini.api.pessoas.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import one.digitalinnovation.capgemini.api.pessoas.entity.Phone;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@Builder
 public class PersonDTO {
 
     private Long id;
@@ -36,6 +38,6 @@ public class PersonDTO {
 
     @Valid
     @NotEmpty
-    private List<Phone> phones;
+    private List<PhoneDTO> phones;
 
 }

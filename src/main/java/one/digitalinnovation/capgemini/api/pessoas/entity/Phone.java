@@ -1,5 +1,6 @@
 package one.digitalinnovation.capgemini.api.pessoas.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
  */
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "phone")
 public class Phone {
