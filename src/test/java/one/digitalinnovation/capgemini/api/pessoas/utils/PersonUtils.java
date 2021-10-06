@@ -10,7 +10,7 @@ import java.util.Collections;
  * @author Cristian Urbainski
  * @since 03/10/2021
  */
-public class PersonUtils {
+public abstract class PersonUtils {
 
     private static final String FIRST_NAME = "Yuri";
     private static final String LAST_NAME = "Alberto";
@@ -23,7 +23,18 @@ public class PersonUtils {
                 .firstName(FIRST_NAME)
                 .lastName(LAST_NAME)
                 .cpf(CPF_NUMBER)
-                .birthDate("04-04-2010")
+                .birthDate("2010-10-04")
+                .phones(Collections.singletonList(PhoneUtils.createFakeDTO()))
+                .build();
+    }
+
+    public static PersonDTO createFakeDTOWithId() {
+        return PersonDTO.builder()
+                .id(PERSON_ID)
+                .firstName(FIRST_NAME)
+                .lastName(LAST_NAME)
+                .cpf(CPF_NUMBER)
+                .birthDate("2010-10-04")
                 .phones(Collections.singletonList(PhoneUtils.createFakeDTO()))
                 .build();
     }

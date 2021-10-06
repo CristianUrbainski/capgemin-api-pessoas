@@ -1,8 +1,6 @@
 package one.digitalinnovation.capgemini.api.pessoas.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import one.digitalinnovation.capgemini.api.pessoas.entity.Phone;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -18,6 +16,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PersonDTO {
 
     private Long id;

@@ -8,9 +8,9 @@ import one.digitalinnovation.capgemini.api.pessoas.entity.PhoneTypeEnum;
  * @author Cristian Urbainski
  * @since 03/10/2021
  */
-public class PhoneUtils {
+public abstract class PhoneUtils {
 
-    private static final String PHONE_NUMBER = "1199999-9999";
+    private static final String PHONE_NUMBER = "99991999999999";
     private static final PhoneTypeEnum PHONE_TYPE = PhoneTypeEnum.MOBILE;
     private static final long PHONE_ID = 1L;
 
