@@ -1,7 +1,6 @@
 package one.digitalinnovation.capgemini.api.pessoas.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import one.digitalinnovation.capgemini.api.pessoas.entity.PhoneTypeEnum;
 
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +13,9 @@ import javax.validation.constraints.Size;
  */
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PhoneDTO {
 
     private Long id;

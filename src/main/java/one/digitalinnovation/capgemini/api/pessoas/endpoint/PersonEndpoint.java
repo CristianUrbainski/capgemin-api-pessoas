@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -34,9 +33,7 @@ public class PersonEndpoint {
     @PostMapping
     public ResponseEntity<PersonDTO> insert(@RequestBody @Valid PersonDTO personDTO) {
 
-        var person = modelMapper.map(personDTO, Person.class);
-
-        person = personService.save(person);
+        var person = personService.save(personDTO);
 
         var result = modelMapper.map(person, PersonDTO.class);
 
@@ -46,11 +43,7 @@ public class PersonEndpoint {
     @PutMapping("/{id}")
     public ResponseEntity<PersonDTO> update(@PathVariable("id") Long id, @RequestBody @Valid PersonDTO dto) throws PersonNotFound {
 
-        var person = getPerson(id);
-
-        modelMapper.map(dto, person);
-
-        person = personService.save(person);
+        var person = personService.update(id, dto);
 
         var dtoResponse = modelMapper.map(person, PersonDTO.class);
 
@@ -60,9 +53,7 @@ public class PersonEndpoint {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) throws PersonNotFound {
 
-        Person person = getPerson(id);
-
-        personService.delete(person);
+        personService.delete(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -85,16 +76,11 @@ public class PersonEndpoint {
     @GetMapping("/{id}")
     public ResponseEntity<PersonDTO> findById(@PathVariable("id") Long id) throws PersonNotFound {
 
-        Person person = getPerson(id);
+        Person person = personService.findById(id).orElseThrow(() -> new PersonNotFound(id));
 
         var dto = modelMapper.map(person, PersonDTO.class);
 
         return ResponseEntity.ok(dto);
-    }
-
-    private Person getPerson(@PathVariable("id") Long id) throws PersonNotFound {
-
-        return personService.findById(id).orElseThrow(() -> new PersonNotFound(id));
     }
 
 }
